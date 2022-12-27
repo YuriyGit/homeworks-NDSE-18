@@ -5,4 +5,5 @@
 /httpRequests/
 .git/
 .idea/
+node_modules/
 
