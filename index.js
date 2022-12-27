@@ -1,83 +1,37 @@
-#!/usr/bin/env node
-const argv = process.argv.slice(2)
+#!usr/bin/env
+const readline = require('readline')
+const {stdin: input, stdout: output} = require('process')
 
-const yearFlag = ['--year', '-y']
-const monthFlag = ['--month', '-m']
-const dateFlag = ['--date', '-d']
+const rl = readline.createInterface({input, output})
+let randomNum = Math.round(Math.random() * 100)
 
-const year = argv[1] === yearFlag[0] || argv[1] === yearFlag[1]
-const month = argv[1] === monthFlag[0] || argv[1] === monthFlag[1]
-const date = argv[1] === dateFlag[0] || argv[1] === dateFlag[1]
-const num = +argv[2]
-
-if (argv[0] === 'current') {
-    showDate(argv)
-} else if (argv[0] === 'add') {
-    if (year) {
-        addYear(num)
-    } else if (month) {
-        addMon(num)
-    } else if (date) {
-        addDay(num)
+rl.question('Загадано число в диапазоне от 0 до 100. Угадайте его: ', (userInput) => {
+    if (userInput === String(randomNum)) {
+        rl.close()
+    } else {
+        rl.setPrompt('Не верно! Попробуйте ещё \n')
+        rl.prompt();
+        rl.on('line', (userInput) => {
+            if (userInput === String(randomNum)) {
+                rl.close()
+            } else if (userInput < String(randomNum)) {
+                rl.setPrompt('загаданное число больше. Введите ещё: ')
+                rl.prompt()
+            } else if (userInput > String(randomNum)) {
+                rl.setPrompt('загаданное число меньше. Введите ещё: ')
+                rl.prompt()
+            }
+        })
     }
-} else if (argv[0] === 'sub') {
-    if (year) {
-        subYear(num)
-    } else if (month) {
-        subMon(num)
-    } else if (date) {
-        subDay(num)
-    }
-}
+})
+rl.on('close', () => {
+    console.log('Вы угадали!')
+})
 
-function showDate(argv) {
-    const current = argv.length === 1
-    if (current) {
-        console.log(new Date())
-    } else if (year) {
-        console.log(new Date().getFullYear())
-    } else if (month) {
-        console.log(new Date().getMonth() + 1)
-    } else if (date) {
-        console.log(new Date().getDate())
-    }
-}
 
-//////add/////
 
-function addYear(add) {
-    const d = new Date()
-    d.setFullYear(d.getFullYear() + add)
-    console.log(d)
-}
 
-function addDay(add) {
-    const d = new Date()
-    d.setDate(d.getDate() + add)
-    console.log(d)
-}
 
-function addMon(add) {
-    const d = new Date()
-    d.setMonth(d.getMonth() + add)
-    console.log(d)
-}
 
-//////sub/////
-function subYear(sub) {
-    const d = new Date()
-    d.setFullYear(d.getFullYear() - sub)
-    console.log(d)
-}
 
-function subMon(sub) {
-    const d = new Date()
-    d.setMonth(d.getMonth() - sub)
-    console.log(d)
-}
 
-function subDay(sub) {
-    const d = new Date()
-    d.setDate(d.getDate() - sub)
-    console.log(d)
-}

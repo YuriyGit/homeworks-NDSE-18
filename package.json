@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "bin": {
-    "theDate": "index.js"
+    "findNum": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +18,8 @@
     "url": "https://github.com/YuriyGit/homeworks-NDSE-18/issues"
   },
   "homepage": "https://github.com/YuriyGit/homeworks-NDSE-18#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
 }
