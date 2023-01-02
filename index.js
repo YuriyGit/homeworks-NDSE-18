@@ -5,9 +5,9 @@ const yearFlags = ['--year', '-y']
 const monthFlags = ['--month', '-m']
 const dateFlags = ['--date', '-d']
 
-const isYear = argv[1] === yearFlags[0] || argv[1] === yearFlags[1]
-const isMonth = argv[1] === monthFlags[0] || argv[1] === monthFlags[1]
-const isDate = argv[1] === dateFlags[0] || argv[1] === dateFlags[1]
+const isYear = -1 < yearFlags.indexOf(argv[1])
+const isMonth = -1 < monthFlags.indexOf(argv[1])
+const isDate = -1 < dateFlags.indexOf(argv[1])
 const increment = +argv[2]
 const operation = argv[0]
 
