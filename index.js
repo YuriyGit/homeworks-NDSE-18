@@ -1,32 +1,33 @@
 #!/usr/bin/env node
 const argv = process.argv.slice(2)
 
-const yearFlag = ['--year', '-y']
-const monthFlag = ['--month', '-m']
-const dateFlag = ['--date', '-d']
+const yearFlags = ['--year', '-y']
+const monthFlags = ['--month', '-m']
+const dateFlags = ['--date', '-d']
 
-const year = argv[1] === yearFlag[0] || argv[1] === yearFlag[1]
-const month = argv[1] === monthFlag[0] || argv[1] === monthFlag[1]
-const date = argv[1] === dateFlag[0] || argv[1] === dateFlag[1]
-const num = +argv[2]
+const isYear = argv[1] === yearFlags[0] || argv[1] === yearFlags[1]
+const isMonth = argv[1] === monthFlags[0] || argv[1] === monthFlags[1]
+const isDate = argv[1] === dateFlags[0] || argv[1] === dateFlags[1]
+const increment = +argv[2]
+const operation = argv[0]
 
-if (argv[0] === 'current') {
+if (operation === 'current') {
     showDate(argv)
 } else if (argv[0] === 'add') {
-    if (year) {
-        addYear(num)
-    } else if (month) {
-        addMon(num)
-    } else if (date) {
-        addDay(num)
+    if (isYear) {
+        addYear(increment)
+    } else if (isMonth) {
+        addMonth(increment)
+    } else if (isDate) {
+        addDay(increment)
     }
 } else if (argv[0] === 'sub') {
-    if (year) {
-        subYear(num)
-    } else if (month) {
-        subMon(num)
-    } else if (date) {
-        subDay(num)
+    if (isYear) {
+        subYear(increment)
+    } else if (isMonth) {
+        subMon(increment)
+    } else if (isDate) {
+        subDay(increment)
     }
 }
 
@@ -34,11 +35,11 @@ function showDate(argv) {
     const current = argv.length === 1
     if (current) {
         console.log(new Date())
-    } else if (year) {
+    } else if (isYear) {
         console.log(new Date().getFullYear())
-    } else if (month) {
+    } else if (isMonth) {
         console.log(new Date().getMonth() + 1)
-    } else if (date) {
+    } else if (isDate) {
         console.log(new Date().getDate())
     }
 }
@@ -57,7 +58,7 @@ function addDay(add) {
     console.log(d)
 }
 
-function addMon(add) {
+function addMonth(add) {
     const d = new Date()
     d.setMonth(d.getMonth() + add)
     console.log(d)
